@@ -1,0 +1,10 @@
+SELECT TOP 5 B.brandname,
+             Count(DISTINCT R.receiptid) AS receiptscannedcount
+FROM   brand B
+       JOIN receiptitemlist R
+         ON B.brandcode = R.brandcode
+       JOIN receipt rr
+         ON rr.receiptid = R.receiptid
+WHERE  datescanned > Dateadd(month, -1, CURRENT_TIMESTAMP)
+GROUP  BY B.brandname
+ORDER  BY receiptscannedcount DESC 
